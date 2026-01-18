@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briefing Vision Ads & Projetos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #0056b3;
+            --primary-light: #0073e6;
+            --bg: #0a0e27;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text: rgba(255, 255, 255, 0.9);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 20px;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Animações de fundo */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 86, 179, 0.1) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+        }
+        
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 86, 179, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 86, 179, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .form-briefing {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            padding: 50px 40px;
+            border-radius: 30px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .titulo-principal {
+            text-align: center;
+            background: linear-gradient(135deg, #ffffff 0%, #00d4ff 50%, #0056b3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            font-weight: 800;
+            font-size: 2.5em;
+            letter-spacing: -1px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                filter: drop-shadow(0 0 10px rgba(0, 86, 179, 0.5));
+            }
+            to {
+                filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.8));
+            }
+        }
+        
+        .intro-text {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        
+        fieldset {
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.02);
+            transition: all 0.3s ease;
+        }
+        
+        fieldset:hover {
+            border-color: rgba(0, 86, 179, 0.5);
+            background: rgba(255, 255, 255, 0.03);
+        }
+        
+        legend {
+            font-weight: 700;
+            padding: 0 15px;
+            color: var(--primary-light);
+            font-size: 1.2em;
+        }
+        
+        label {
+            display: block;
+            margin-top: 20px;
+            font-weight: 500;
+            font-size: 0.95em;
+            color: var(--text);
+        }
+        
+        label:first-child {
+            margin-top: 0;
+        }
+        
+        input[type="text"], 
+        input[type="email"], 
+        textarea, 
+        select {
+            width: 100%;
+            padding: 14px 16px;
+            margin-top: 8px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="text"]:focus, 
+        input[type="email"]:focus, 
+        textarea:focus, 
+        select:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.2);
+        }
+        
+        input[type="text"]::placeholder, 
+        input[type="email"]::placeholder, 
+        textarea::placeholder {
+            color: var(--text-secondary);
+        }
+        
+        .radio-group, .checkbox-group {
+            margin-top: 10px;
+        }
+        
+        .radio-item, .checkbox-item {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .radio-item:hover, .checkbox-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .radio-item input, .checkbox-item input {
+            margin-right: 12px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary-light);
+        }
+        
+        .radio-item label, .checkbox-item label {
+            margin-top: 0;
+            cursor: pointer;
+            font-weight: 400;
+        }
+        
+        .btn-enviar {
+            background: linear-gradient(135deg, #0056b3 0%, #0073e6 100%);
+            color: white;
+            border: none;
+            padding: 20px;
+            width: 100%;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 86, 179, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-enviar::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn-enviar:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn-enviar:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 86, 179, 0.5);
+        }
+        
+        .btn-enviar:disabled {
+            background: rgba(255, 255, 255, 0.1);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-enviar span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo-vision-ads {
+            display: block;
+            margin: 0 auto 30px;
+            max-width: 200px;
+            filter: drop-shadow(0 0 20px rgba(0, 86, 179, 0.5));
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        small { 
+            color: var(--text-secondary); 
+            font-size: 0.85em; 
+        }
+        
+        /* Scrollbar personalizada */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-light);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-animation"></div>
+    <div class="grid-background"></div>
+    
+    <form id="form-briefing" class="form-briefing">
+        <h1 class="titulo-principal">Briefing do Projeto & Tráfego</h1>
+        
+        <p class="intro-text">Olá 😊 Este formulário é apenas para entender melhor sua ideia e alinhar como o sistema pode funcionar da melhor forma para você.<br>
+        Não é nada técnico, é só para você explicar como imagina o sistema funcionando.</p>
+
+        <fieldset>
+            <legend>🏢 Dados da Empresa</legend>
+            <label for="nomeEmpresa">Nome da empresa / projeto</label>
+            <input type="text" id="nomeEmpresa" name="nomeEmpresa" required>
+
+            <label for="responsavel">Nome do responsável</label>
+            <input type="text" id="responsavel" name="responsavel" required>
+
+            <label for="telefone">WhatsApp</label>
+            <input type="text" id="telefone" name="telefone" required>
+
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="instagramEmpresa">@ do Instagram</label>
+            <input type="text" id="instagramEmpresa" name="instagramEmpresa">
+
+            <label for="endereco">Endereço</label>
+            <input type="text" id="endereco" name="endereco">
+
+            <label for="cnpj">CNPJ</label>
+            <input type="text" id="cnpj" name="cnpj">
+        </fieldset>
+
+        <fieldset>
+            <legend>📋 Formulário de Entendimento do Projeto</legend>
+            
+            <label for="ideia_principal">Qual é a principal ideia do projeto?</label>
+            <textarea id="ideia_principal" name="ideia_principal" rows="3" placeholder="Ex: cursos, eventos presenciais, treinamentos, workshops, etc."></textarea>
+
+            <label>A ideia do fluxo (Site -> Escolha de Produto -> Acesso/Ingresso Automático) faz sentido?</label>
+            <div class="radio-group">
+                <div class="radio-item"><input type="radio" name="fluxo_sentido" value="Sim" checked> Sim, faz sentido</div>
+                <div class="radio-item"><input type="radio" name="fluxo_sentido" value="Ajustar"> Sim, mas quero ajustar coisas</div>
+                <div class="radio-item"><input type="radio" name="fluxo_sentido" value="Diferente"> Não, imagino diferente</div>
+            </div>
+
+            <label for="detalhes_projeto">Se quiser explicar melhor como imagina o sistema:</label>
+            <textarea id="detalhes_projeto" name="detalhes_projeto" rows="3"></textarea>
+
+            <label>Você pretende ter Eventos Presenciais?</label>
+            <div class="radio-group">
+                <div class="radio-item"><input type="radio" name="tem_presencial" value="Sim"> Sim</div>
+                <div class="radio-item"><input type="radio" name="tem_presencial" value="Não"> Não</div>
+                <div class="radio-item"><input type="radio" name="tem_presencial" value="Futuro"> Talvez no futuro</div>
+            </div>
+
+            <label>Como você imagina o ingresso?</label>
+            <div class="radio-group">
+                <div class="radio-item"><input type="radio" name="tipo_ingresso" value="QR Code no celular"> QR Code no celular</div>
+                <div class="radio-item"><input type="radio" name="tipo_ingresso" value="PDF com QR Code"> PDF com QR Code</div>
+                <div class="radio-item"><input type="radio" name="tipo_ingresso" value="Tanto faz"> Tanto faz</div>
+            </div>
+
+            <label>No dia do evento, alguém vai conferir esse ingresso na entrada?</label>
+            <div class="radio-group">
+                <div class="radio-item"><input type="radio" name="conferir_ingresso" value="Sim"> Sim</div>
+                <div class="radio-item"><input type="radio" name="conferir_ingresso" value="Não"> Não</div>
+                <div class="radio-item"><input type="radio" name="conferir_ingresso" value="Ainda não sei"> Ainda não sei</div>
+            </div>
+
+            <label>Você pretende oferecer Cursos Online?</label>
+            <div class="radio-group">
+                <div class="radio-item"><input type="radio" name="tem_online" value="Sim"> Sim</div>
+                <div class="radio-item"><input type="radio" name="tem_online" value="Não"> Não</div>
+                <div class="radio-item"><input type="radio" name="tem_online" value="Talvez no futuro"> Talvez no futuro</div>
+            </div>
+
+            <label>Como você imagina os cursos organizados?</label>
+            <div class="radio-group">
+                <div class="radio-item"><input type="radio" name="organizacao_cursos" value="Por módulos"> Por módulos (ex: Módulo 1, Módulo 2, etc.)</div>
+                <div class="radio-item"><input type="radio" name="organizacao_cursos" value="Lista simples"> Tudo em uma lista simples</div>
+                <div class="radio-item"><input type="radio" name="organizacao_cursos" value="Ainda não sei"> Ainda não sei</div>
+            </div>
+
+            <label>As aulas serão em vídeo?</label>
+            <div class="radio-group">
+                <div class="radio-item"><input type="radio" name="aulas_video" value="Sim"> Sim</div>
+                <div class="radio-item"><input type="radio" name="aulas_video" value="Não"> Não</div>
+                <div class="radio-item"><input type="radio" name="aulas_video" value="Algumas sim"> Algumas sim</div>
+            </div>
+
+            <label>Depois que a pessoa compra, ela deve:</label>
+            <div class="radio-group">
+                <div class="radio-item"><input type="radio" name="acesso_aluno" value="Só ao que comprou"> Ter acesso só ao que comprou</div>
+                <div class="radio-item"><input type="radio" name="acesso_aluno" value="Quantas vezes quiser"> Poder entrar quantas vezes quiser</div>
+                <div class="radio-item"><input type="radio" name="acesso_aluno" value="Tudo no site"> Acessar tudo dentro do próprio site</div>
+            </div>
+
+            <label>Isso está de acordo com o que você imagina?</label>
+            <div class="radio-group">
+                <div class="radio-item"><input type="radio" name="acesso_ok" value="Sim"> Sim</div>
+                <div class="radio-item"><input type="radio" name="acesso_ok" value="Não"> Não</div>
+                <div class="radio-item"><input type="radio" name="acesso_ok" value="Quero conversar"> Quero conversar melhor sobre isso</div>
+            </div>
+
+            <label>O que você gostaria de controlar na sua Área Administrativa?</label>
+            <div class="checkbox-group">
+                <div class="checkbox-item"><input type="checkbox" name="admin_items" value="Cadastrar Cursos"> Cadastrar cursos</div>
+                <div class="checkbox-item"><input type="checkbox" name="admin_items" value="Organizar Aulas"> Organizar aulas</div>
+                <div class="checkbox-item"><input type="checkbox" name="admin_items" value="Ver Vendas"> Ver quem comprou</div>
+                <div class="checkbox-item"><input type="checkbox" name="admin_items" value="Validar Ingressos"> Controlar ingressos</div>
+                <div class="checkbox-item"><input type="checkbox" name="admin_items" value="Acompanhar Participantes"> Acompanhar participantes</div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>🔎 Sobre o Negócio</legend>
+
+            <label for="produto">Qual é o seu produto ou serviço principal?</label>
+            <textarea id="produto" name="produto" rows="3"></textarea>
+
+            <label for="investiu">Você já investiu em tráfego pago antes? Se sim, quais resultados teve?</label>
+            <textarea id="investiu" name="investiu" rows="3"></textarea>
+
+            <label>Quais redes sociais você utiliza ativamente?</label>
+            <div class="checkbox-group">
+                <div class="checkbox-item"><input type="checkbox" name="redes[]" value="Instagram"> Instagram</div>
+                <div class="checkbox-item"><input type="checkbox" name="redes[]" value="Facebook"> Facebook</div>
+                <div class="checkbox-item"><input type="checkbox" name="redes[]" value="TikTok"> TikTok</div>
+                <div class="checkbox-item"><input type="checkbox" name="redes[]" value="YouTube"> YouTube</div>
+                <div class="checkbox-item"><input type="checkbox" name="redes[]" value="LinkedIn"> LinkedIn</div>
+                <div class="checkbox-item">
+                    <input type="checkbox" name="redes[]" value="Outra"> Outra:
+                    <input type="text" name="outraRedeTexto" style="width: auto; margin-left: 10px;">
+                </div>
+            </div>
+
+            <label>Você possui uma equipe para atender os leads ou pedidos que forem gerados?</label>
+            <div class="radio-group">
+                <div class="radio-item"><input type="radio" name="equipe" value="Sim"> Sim</div>
+                <div class="radio-item"><input type="radio" name="equipe" value="Não"> Não</div>
+                <div class="radio-item"><input type="radio" name="equipe" value="Estou montando uma equipe"> Estou montando uma equipe</div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>🎯 Tráfego e Metas</legend>
+
+            <label for="publico">Qual é o seu público-alvo ideal?</label>
+            <textarea id="publico" name="publico" rows="2" placeholder="Ex: Mulheres, 25-40 anos, interessadas em estética..."></textarea>
+
+            <label>Qual o seu orçamento mensal para anúncios?</label>
+            <div class="radio-group">
+                <div class="radio-item"><input type="radio" name="orcamento" value="Até R$1.000"> Até R$1.000</div>
+                <div class="radio-item"><input type="radio" name="orcamento" value="R$1.000 a R$3.000"> R$1.000 a R$3.000</div>
+                <div class="radio-item"><input type="radio" name="orcamento" value="Acima de R$3.000"> Acima de R$3.000</div>
+            </div>
+
+            <label>Para alinhar expectativas, você já tem uma ideia de investimento?</label>
+            <div class="radio-group">
+                <div class="radio-item"><input type="radio" name="tipo_investimento" value="Ainda não pensei"> Ainda não pensei nisso</div>
+                <div class="radio-item"><input type="radio" name="tipo_investimento" value="Tenho faixa"> Tenho uma faixa de valor em mente</div>
+                <div class="radio-item"><input type="radio" name="tipo_investimento" value="Prefiro proposta"> Prefiro receber uma proposta</div>
+            </div>
+
+            <label for="investimento_sistema">Se quiser informar um valor aproximado (opcional):</label>
+            <input type="text" id="investimento_sistema" name="investimento_sistema" placeholder="R$">
+
+            <label>Qual é o principal objetivo com os anúncios?</label>
+            <div class="checkbox-group">
+                <div class="checkbox-item"><input type="checkbox" name="objetivo[]" value="Gerar leads"> Gerar leads (contatos)</div>
+                <div class="checkbox-item"><input type="checkbox" name="objetivo[]" value="Vendas diretas"> Vendas diretas</div>
+                <div class="checkbox-item"><input type="checkbox" name="objetivo[]" value="Agendamentos"> Agendamentos</div>
+                <div class="checkbox-item"><input type="checkbox" name="objetivo[]" value="Aumentar visitas no site"> Aumentar visitas no site</div>
+                <div class="checkbox-item"><input type="checkbox" name="objetivo[]" value="Fortalecer a marca"> Fortalecer a marca</div>
+                <div class="checkbox-item">
+                    <input type="checkbox" name="objetivo[]" value="Outro"> Outro:
+                    <input type="text" name="outroObjTexto" style="width: auto; margin-left: 10px;">
+                </div>
+            </div>
+
+            <label for="tempo">Em quanto tempo espera ver resultados?</label>
+            <input type="text" id="tempo" name="tempo">
+
+            <label for="ofertaAtracao">Já tem uma oferta (promoção, bônus, condição especial) para atrair o público?</label>
+            <textarea id="ofertaAtracao" name="ofertaAtracao" rows="3"></textarea>
+        </fieldset>
+
+        <fieldset>
+            <legend>📦 Sobre o Produto/Serviço</legend>
+
+            <label for="diferenciais">Quais são os maiores diferenciais do seu negócio em relação aos concorrentes?</label>
+            <textarea id="diferenciais" name="diferenciais" rows="3"></textarea>
+
+            <label for="garantia">Existe alguma garantia, bônus ou condição especial que devemos destacar?</label>
+            <textarea id="garantia" name="garantia" rows="3"></textarea>
+        </fieldset>
+
+        <fieldset>
+            <legend>🧲 Sobre a Oferta</legend>
+
+            <label for="oferta">Qual é a oferta que vamos divulgar nos anúncios?</label>
+            <textarea id="oferta" name="oferta" rows="3"></textarea>
+
+            <label for="limite">Existe um limite de estoque, vagas ou tempo?</label>
+            <input type="text" id="limite" name="limite">
+
+            <label for="campanhaAnterior">Tem alguma campanha anterior que você gostou e queria se inspirar? (Pode ser sua ou de outra marca)</label>
+            <textarea id="campanhaAnterior" name="campanhaAnterior" rows="3"></textarea>
+        </fieldset>
+
+        <fieldset>
+            <legend>📍 Sobre a Página de Destino</legend>
+
+            <label for="palavras">Existem palavras que você gostaria de evitar ou destacar nos anúncios?</label>
+            <textarea id="palavras" name="palavras" rows="3"></textarea>
+        </fieldset>
+
+        <fieldset>
+            <legend>🎨 Design e Referências</legend>
+            
+            <label>Você já tem alguma identidade visual?</label>
+            <div class="radio-group">
+                <div class="radio-item"><input type="radio" name="tem_identidade" value="Sim"> Sim</div>
+                <div class="radio-item"><input type="radio" name="tem_identidade" value="Não"> Não</div>
+            </div>
+
+            <label>Estilo visual que mais gosta:</label>
+            <select name="estilo_visual">
+                <option value="">Selecione...</option>
+                <option value="Clean">Clean (simples e organizado)</option>
+                <option value="Moderno">Moderno</option>
+                <option value="Sofisticado">Algo mais sofisticado</option>
+                <option value="Ainda não sei">Ainda não sei</option>
+            </select>
+
+            <label for="concorrente">Você tem alguma referência de site ou sistema que goste? (Pode ser Instagram, site, plataforma, etc.)</label>
+            <textarea id="concorrente" name="concorrente" rows="2"></textarea>
+
+            <label>Você imagina ter algumas páginas para divulgar e vender? (Landing Pages)</label>
+            <div class="radio-group">
+                <div class="radio-item"><input type="radio" name="tem_landing" value="Sim"> Sim</div>
+                <div class="radio-item"><input type="radio" name="tem_landing" value="Não"> Não</div>
+                <div class="radio-item"><input type="radio" name="tem_landing" value="Talvez"> Talvez</div>
+            </div>
+
+            <label>Se sim, quantas mais ou menos?</label>
+            <div class="radio-group">
+                <div class="radio-item"><input type="radio" name="quantas_landing" value="1"> 1</div>
+                <div class="radio-item"><input type="radio" name="quantas_landing" value="2"> 2</div>
+                <div class="radio-item"><input type="radio" name="quantas_landing" value="3"> 3</div>
+            </div>
+            
+            <label for="obs_finais">Existe algo que você imaginou para o sistema e não foi perguntado acima?</label>
+            <textarea id="obs_finais" name="obs_finais" rows="3"></textarea>
+        </fieldset>
+
+        <button type="submit" id="btn-enviar" class="btn-enviar">
+            <span>✨ Enviar Briefing Completo</span>
+        </button>
+    </form>
+
+    <script>
+        document.getElementById('form-briefing').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('btn-enviar');
+            const btnSpan = btn.querySelector('span');
+            btn.disabled = true;
+            btnSpan.innerText = "ENVIANDO DADOS...";
+
+            const formData = new FormData(this);
+            
+            // Captura checkboxes da Administração
+            const adminItems = [];
+            document.querySelectorAll('input[name="admin_items"]:checked').forEach(el => adminItems.push(el.value));
+
+            // Captura checkboxes de Redes Sociais
+            const redes = [];
+            document.querySelectorAll('input[name="redes[]"]:checked').forEach(el => {
+                let valor = el.value;
+                if (valor === 'Outra') {
+                    const outroTexto = formData.get('outraRedeTexto');
+                    if (outroTexto) valor += ': ' + outroTexto;
+                }
+                redes.push(valor);
+            });
+
+            // Captura checkboxes de Objetivos
+            const objetivos = [];
+            document.querySelectorAll('input[name="objetivo[]"]:checked').forEach(el => {
+                let valor = el.value;
+                if (valor === 'Outro') {
+                    const outroTexto = formData.get('outroObjTexto');
+                    if (outroTexto) valor += ': ' + outroTexto;
+                }
+                objetivos.push(valor);
+            });
+
+            // Captura valores dos campos
+            const nomeEmpresa = formData.get('nomeEmpresa');
+            const responsavel = formData.get('responsavel');
+            const telefone = formData.get('telefone');
+            const email = formData.get('email');
+            const instagramEmpresa = formData.get('instagramEmpresa');
+            const endereco = formData.get('endereco');
+            const cnpj = formData.get('cnpj');
+            const ideia_principal = formData.get('ideia_principal');
+            const produto = formData.get('produto');
+            const publico = formData.get('publico');
+            const investiu = formData.get('investiu');
+            const equipe = formData.get('equipe');
+            const fluxo_sentido = formData.get('fluxo_sentido');
+            const detalhes_projeto = formData.get('detalhes_projeto');
+            const tem_presencial = formData.get('tem_presencial');
+            const tipo_ingresso = formData.get('tipo_ingresso');
+            const conferir_ingresso = formData.get('conferir_ingresso');
+            const tem_online = formData.get('tem_online');
+            const organizacao_cursos = formData.get('organizacao_cursos');
+            const aulas_video = formData.get('aulas_video');
+            const acesso_aluno = formData.get('acesso_aluno');
+            const acesso_ok = formData.get('acesso_ok');
+            const orcamento = formData.get('orcamento');
+            const tipo_investimento = formData.get('tipo_investimento');
+            const investimento_sistema = formData.get('investimento_sistema');
+            const tem_identidade = formData.get('tem_identidade');
+            const tem_landing = formData.get('tem_landing');
+            const quantas_landing = formData.get('quantas_landing');
+            const tempo = formData.get('tempo');
+            const ofertaAtracao = formData.get('ofertaAtracao');
+            const diferenciais = formData.get('diferenciais');
+            const garantia = formData.get('garantia');
+            const oferta = formData.get('oferta');
+            const limite = formData.get('limite');
+            const campanhaAnterior = formData.get('campanhaAnterior');
+            const palavras = formData.get('palavras');
+            const estilo_visual = formData.get('estilo_visual');
+            const concorrente = formData.get('concorrente');
+            const obs_finais = formData.get('obs_finais');
+
+            // Cria array de perguntas e respostas
+            const questionsAndAnswers = [];
+            let questionNum = 1;
+
+            // Dados da Empresa
+            if (nomeEmpresa) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Nome da empresa / projeto',
+                    answer: nomeEmpresa
+                });
+            }
+            if (responsavel) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Nome do responsável',
+                    answer: responsavel
+                });
+            }
+            if (telefone) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'WhatsApp',
+                    answer: telefone
+                });
+            }
+            if (email) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'E-mail',
+                    answer: email
+                });
+            }
+            if (instagramEmpresa) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: '@ do Instagram',
+                    answer: instagramEmpresa
+                });
+            }
+            if (endereco) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Endereço',
+                    answer: endereco
+                });
+            }
+            if (cnpj) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'CNPJ',
+                    answer: cnpj
+                });
+            }
+
+            // Funcionamento do Sistema
+            if (ideia_principal) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Qual é a principal ideia do projeto?',
+                    answer: ideia_principal
+                });
+            }
+            if (fluxo_sentido) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'A ideia do fluxo (Site -> Escolha de Produto -> Acesso/Ingresso Automático) faz sentido?',
+                    answer: fluxo_sentido
+                });
+            }
+            if (detalhes_projeto) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Se quiser explicar melhor como imagina o sistema:',
+                    answer: detalhes_projeto
+                });
+            }
+            if (tem_presencial) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Você pretende ter Eventos Presenciais?',
+                    answer: tem_presencial
+                });
+            }
+            if (tipo_ingresso) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Como você imagina o ingresso?',
+                    answer: tipo_ingresso
+                });
+            }
+            if (conferir_ingresso) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'No dia do evento, alguém vai conferir esse ingresso na entrada?',
+                    answer: conferir_ingresso
+                });
+            }
+            if (tem_online) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Você pretende oferecer Cursos Online?',
+                    answer: tem_online
+                });
+            }
+            if (organizacao_cursos) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Como você imagina os cursos organizados?',
+                    answer: organizacao_cursos
+                });
+            }
+            if (aulas_video) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'As aulas serão em vídeo?',
+                    answer: aulas_video
+                });
+            }
+            if (acesso_aluno) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Depois que a pessoa compra, ela deve:',
+                    answer: acesso_aluno
+                });
+            }
+            if (acesso_ok) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Isso está de acordo com o que você imagina?',
+                    answer: acesso_ok
+                });
+            }
+            if (adminItems.length > 0) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'O que você gostaria de controlar na sua Área Administrativa?',
+                    answer: adminItems.join(', ')
+                });
+            }
+
+            // Sobre o Negócio
+            if (produto) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Qual é o seu produto ou serviço principal?',
+                    answer: produto
+                });
+            }
+            if (investiu) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Você já investiu em tráfego pago antes? Se sim, quais resultados teve?',
+                    answer: investiu
+                });
+            }
+            if (redes.length > 0) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Quais redes sociais você utiliza ativamente?',
+                    answer: redes.join(', ')
+                });
+            }
+            if (equipe) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Você possui uma equipe para atender os leads ou pedidos que forem gerados?',
+                    answer: equipe
+                });
+            }
+
+            // Tráfego e Metas
+            if (publico) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Qual é o seu público-alvo ideal?',
+                    answer: publico
+                });
+            }
+            if (orcamento) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Qual o seu orçamento mensal para anúncios?',
+                    answer: orcamento
+                });
+            }
+            if (tipo_investimento) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Para alinhar expectativas, você já tem uma ideia de investimento?',
+                    answer: tipo_investimento
+                });
+            }
+            if (investimento_sistema) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Se quiser informar um valor aproximado (opcional)',
+                    answer: investimento_sistema
+                });
+            }
+            if (objetivos.length > 0) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Qual é o principal objetivo com os anúncios?',
+                    answer: objetivos.join(', ')
+                });
+            }
+            if (tempo) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Em quanto tempo espera ver resultados?',
+                    answer: tempo
+                });
+            }
+            if (ofertaAtracao) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Já tem uma oferta (promoção, bônus, condição especial) para atrair o público?',
+                    answer: ofertaAtracao
+                });
+            }
+
+            // Sobre o Produto/Serviço
+            if (diferenciais) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Quais são os maiores diferenciais do seu negócio em relação aos concorrentes?',
+                    answer: diferenciais
+                });
+            }
+            if (garantia) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Existe alguma garantia, bônus ou condição especial que devemos destacar?',
+                    answer: garantia
+                });
+            }
+
+            // Sobre a Oferta
+            if (oferta) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Qual é a oferta que vamos divulgar nos anúncios?',
+                    answer: oferta
+                });
+            }
+            if (limite) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Existe um limite de estoque, vagas ou tempo?',
+                    answer: limite
+                });
+            }
+            if (campanhaAnterior) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Tem alguma campanha anterior que você gostou e queria se inspirar? (Pode ser sua ou de outra marca)',
+                    answer: campanhaAnterior
+                });
+            }
+
+            // Sobre a Página de Destino
+            if (palavras) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Existem palavras que você gostaria de evitar ou destacar nos anúncios?',
+                    answer: palavras
+                });
+            }
+
+            // Design e Referências
+            if (tem_identidade) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Você já tem alguma identidade visual?',
+                    answer: tem_identidade
+                });
+            }
+            if (estilo_visual) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Estilo visual que mais gosta',
+                    answer: estilo_visual
+                });
+            }
+            if (concorrente) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Você tem alguma referência de site ou sistema que goste? (Pode ser Instagram, site, plataforma, etc.)',
+                    answer: concorrente
+                });
+            }
+            if (tem_landing) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Você imagina ter algumas páginas para divulgar e vender? (Landing Pages)',
+                    answer: tem_landing
+                });
+            }
+            if (quantas_landing) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Se sim, quantas mais ou menos?',
+                    answer: quantas_landing
+                });
+            }
+            if (obs_finais) {
+                questionsAndAnswers.push({
+                    number: questionNum++,
+                    question: 'Existe algo que você imaginou para o sistema e não foi perguntado acima?',
+                    answer: obs_finais
+                });
+            }
+
+            // Formatar texto de perguntas e respostas numeradas
+            let qaText = '';
+            qaText += '═══════════════════════════════════════════════════════════════════\n';
+            qaText += '                    BRIEFING DO PROJETO & TRÁFEGO\n';
+            qaText += '              PERGUNTAS E RESPOSTAS NUMERADAS\n';
+            qaText += '═══════════════════════════════════════════════════════════════════\n\n';
+
+            questionsAndAnswers.forEach(item => {
+                const num = item.number.toString().padStart(3, '0');
+                qaText += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                qaText += `PERGUNTA ${num}:\n`;
+                qaText += `${item.question}\n\n`;
+                qaText += `RESPOSTA ${num}:\n`;
+                qaText += `${item.answer}\n`;
+                qaText += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+            });
+
+            qaText += '═══════════════════════════════════════════════════════════════════\n';
+            qaText += `TOTAL DE PERGUNTAS RESPONDIDAS: ${questionsAndAnswers.length}\n`;
+            qaText += `DATA DE ENVIO: ${new Date().toLocaleString('pt-BR')}\n`;
+            qaText += '═══════════════════════════════════════════════════════════════════\n';
+
+            // Cria FormData para SheetMonkey (formato numerado)
+            const formDataToSend = new FormData();
+            formDataToSend.append('perguntas_respostas_numeradas', qaText);
+            formDataToSend.append('total_perguntas', questionsAndAnswers.length.toString());
+            formDataToSend.append('dataEnvio', new Date().toLocaleString('pt-BR'));
+
+            // URL do SheetMonkey
+            const scriptURL = 'https://api.sheetmonkey.io/form/9LxAc7GbneWB5786A8tytS';
+
+            fetch(scriptURL, {
+                method: 'POST',
+                body: formDataToSend
+            })
+            .then(() => {
+                window.location.href = 'ok.html';
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('❌ Ocorreu um erro ao enviar. Tente novamente.');
+                btn.disabled = false;
+                btnSpan.innerText = "✨ Enviar Briefing Completo";
+            });
+        });
+
+        // Adiciona a logo automaticamente
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById('form-briefing');
+            const img = document.createElement('img');
+            img.src = './img/vision 3.png'; // Verifique se o caminho está correto
+            img.alt = 'Logo Vision Ads';
+            img.className = 'logo-vision-ads';
+            form.prepend(img);
+        });
+    </script>
+</body>
+</html>
