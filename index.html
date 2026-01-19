@@ -185,6 +185,36 @@
             color: var(--text);
             font-size: 0.95em;
             transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        select option {
+            padding: 12px;
+            font-weight: 500;
+        }
+        
+        select option[value="Clean"] {
+            background-color: #f0f0f0 !important;
+            color: #333 !important;
+        }
+        
+        select option[value="Moderno"] {
+            background-color: #e3f2fd !important;
+            color: #1976d2 !important;
+        }
+        
+        select option[value="Sofisticado"] {
+            background-color: #f3e5f5 !important;
+            color: #7b1fa2 !important;
+        }
+        
+        select option[value="Ainda não sei"] {
+            background-color: #fff3e0 !important;
+            color: #e65100 !important;
+        }
+        
+        select option:hover {
+            opacity: 0.8;
         }
         
         input[type="text"]:focus, 
@@ -414,20 +444,6 @@
                 <div class="radio-item"><input type="radio" name="aulas_video" value="Algumas sim"> Algumas sim</div>
             </div>
 
-            <label>Depois que a pessoa compra, ela deve:</label>
-            <div class="radio-group">
-                <div class="radio-item"><input type="radio" name="acesso_aluno" value="Só ao que comprou"> Ter acesso só ao que comprou</div>
-                <div class="radio-item"><input type="radio" name="acesso_aluno" value="Quantas vezes quiser"> Poder entrar quantas vezes quiser</div>
-                <div class="radio-item"><input type="radio" name="acesso_aluno" value="Tudo no site"> Acessar tudo dentro do próprio site</div>
-            </div>
-
-            <label>Isso está de acordo com o que você imagina?</label>
-            <div class="radio-group">
-                <div class="radio-item"><input type="radio" name="acesso_ok" value="Sim"> Sim</div>
-                <div class="radio-item"><input type="radio" name="acesso_ok" value="Não"> Não</div>
-                <div class="radio-item"><input type="radio" name="acesso_ok" value="Quero conversar"> Quero conversar melhor sobre isso</div>
-            </div>
-
             <label>O que você gostaria de controlar na sua Área Administrativa?</label>
             <div class="checkbox-group">
                 <div class="checkbox-item"><input type="checkbox" name="admin_items" value="Cadastrar Cursos"> Cadastrar cursos</div>
@@ -551,12 +567,12 @@
             </div>
 
             <label>Estilo visual que mais gosta:</label>
-            <select name="estilo_visual">
+            <select name="estilo_visual" id="estilo_visual" required>
                 <option value="">Selecione...</option>
-                <option value="Clean">Clean (simples e organizado)</option>
-                <option value="Moderno">Moderno</option>
-                <option value="Sofisticado">Algo mais sofisticado</option>
-                <option value="Ainda não sei">Ainda não sei</option>
+                <option value="Clean" style="background-color: #f0f0f0; color: #333;">Clean (simples e organizado)</option>
+                <option value="Moderno" style="background-color: #e3f2fd; color: #1976d2;">Moderno</option>
+                <option value="Sofisticado" style="background-color: #f3e5f5; color: #7b1fa2;">Algo mais sofisticado</option>
+                <option value="Ainda não sei" style="background-color: #fff3e0; color: #e65100;">Ainda não sei</option>
             </select>
 
             <label for="concorrente">Você tem alguma referência de site ou sistema que goste? (Pode ser Instagram, site, plataforma, etc.)</label>
@@ -643,8 +659,6 @@
             const tem_online = formData.get('tem_online');
             const organizacao_cursos = formData.get('organizacao_cursos');
             const aulas_video = formData.get('aulas_video');
-            const acesso_aluno = formData.get('acesso_aluno');
-            const acesso_ok = formData.get('acesso_ok');
             const orcamento = formData.get('orcamento');
             const tipo_investimento = formData.get('tipo_investimento');
             const investimento_sistema = formData.get('investimento_sistema');
@@ -780,20 +794,6 @@
                     number: questionNum++,
                     question: 'As aulas serão em vídeo?',
                     answer: aulas_video
-                });
-            }
-            if (acesso_aluno) {
-                questionsAndAnswers.push({
-                    number: questionNum++,
-                    question: 'Depois que a pessoa compra, ela deve:',
-                    answer: acesso_aluno
-                });
-            }
-            if (acesso_ok) {
-                questionsAndAnswers.push({
-                    number: questionNum++,
-                    question: 'Isso está de acordo com o que você imagina?',
-                    answer: acesso_ok
                 });
             }
             if (adminItems.length > 0) {
